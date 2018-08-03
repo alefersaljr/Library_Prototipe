@@ -1,6 +1,7 @@
 package com.example.teste;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -39,7 +40,7 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_livro, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book_list, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -61,6 +62,8 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
             public void onClick (View view) {
                 Log.d(TAG, "onClick: clicked on: " + mImageName.get(position));
 
+                Intent it = new Intent(mContext, MainActivity.class);
+                mContext.startActivity(it);
                 Toast.makeText(mContext, mImageName.get(position), Toast.LENGTH_SHORT).show();
             }
         });
@@ -95,7 +98,7 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
 //    @Override
 //    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        View view = LayoutInflater.from(context)
-//                .inflate(R.layout.item_livro, parent, false);
+//                .inflate(R.layout.item_book_list, parent, false);
 //        LivroViewHolder holder = new LivroViewHolder(view);
 //
 //        return holder;

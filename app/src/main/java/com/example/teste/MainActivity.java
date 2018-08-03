@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         proximaTela.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent (MainActivity.this, BookInformation.class);
+                Intent it = new Intent (MainActivity.this, BookList.class);
                 startActivity (it);
             }
         });
