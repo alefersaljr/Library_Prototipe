@@ -2,6 +2,8 @@ package com.example.teste;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,31 +12,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.teste.Helper.BitmapHelper;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> {
 
-//    private List<Livro> livros;
-//    private Context context;
     private static final String TAG = "RecyclerViewAdapter";
 
     private ArrayList<String> mImageName = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
     private ArrayList<String> mAutor = new ArrayList<>();
+    private ArrayList<String> mSinopse = new ArrayList<>();
     private Context mContext;
 
-    public LivroAdapter(Context mContext, ArrayList<String> mImageName, ArrayList<String> mImages, ArrayList<String> mAutor) {
+    Bitmap bitmap;
+
+    public LivroAdapter(Context mContext, ArrayList<String> mImageName, ArrayList<String> mImages, ArrayList<String> mAutor, ArrayList<String> mSinopse) {
         this.mImageName = mImageName;
         this.mImages = mImages;
         this.mContext = mContext;
         this.mAutor = mAutor;
+        this.mSinopse = mSinopse;
     }
 
     @NonNull
@@ -62,9 +70,14 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
             public void onClick (View view) {
                 Log.d(TAG, "onClick: clicked on: " + mImageName.get(position));
 
-                Intent it = new Intent(mContext, MainActivity.class);
+                Intent it = new Intent(mContext, BookDescription.class);
+                it.putExtra("LIVRO", mImageName.get(position).toString());
+                it.putExtra("AUTOR", mAutor.get(position).toString());
+                it.putExtra("IMAGEM", mImages.get(position).toString());
+                it.putExtra("SINOPSE", mSinopse.get(position).toString());
+                bitmap = loadBitmapFromUrl (mImages.get(position));
+                BitmapHelper.getInstance().setBitmap(bitmap);
                 mContext.startActivity(it);
-                Toast.makeText(mContext, mImageName.get(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -88,6 +101,25 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
             autorName = itemView.findViewById(R.id.autor);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
+    }
+
+    private Bitmap loadBitmapFromUrl(String imagem) {
+        try{
+            URL url = new URL(imagem);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
+            return myBitmap;
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 //    public LivroAdapter(List<Livro> livros, Context context) {
