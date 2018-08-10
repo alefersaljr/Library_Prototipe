@@ -41,7 +41,7 @@
         android:layout_marginTop="160dp" />
 
     <ImageView
-        android:id="@+id/image2"
+        android:id="@+id/imagePass"
         android:layout_width="190dp"
         android:layout_height="190dp"
         android:layout_alignParentBottom="true"

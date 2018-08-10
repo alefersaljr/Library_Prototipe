@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BookDescription extends Activity {
@@ -12,6 +13,9 @@ public class BookDescription extends Activity {
     public TextView titulo;
     public TextView autor;
     public TextView sinopse;
+    public ImageView capa;
+    public ImageView imagePass;
+
     Button prev;
     Button next;
 
@@ -23,6 +27,8 @@ public class BookDescription extends Activity {
         titulo = (TextView) findViewById(R.id.titulo);
         autor = (TextView) findViewById(R.id.autor);
         sinopse = (TextView) findViewById(R.id.book_description);
+        capa = (ImageView) findViewById(R.id.capa);
+        imagePass = (ImageView) findViewById(R.id.imagePass);
 
         titulo.setText(getIntent().getStringExtra("LIVRO"));
         autor.setText(getIntent().getStringExtra("AUTOR"));
