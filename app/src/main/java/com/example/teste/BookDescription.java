@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.teste.Helper.BitmapHelper;
+//import com.example.teste.Helper.BitmapHelper;
 
 public class BookDescription extends Activity {
 
     public TextView titulo;
     public TextView autor;
     public TextView sinopse;
-    public ImageView imagem;
+//    public ImageView imagem;
     Button prev;
     Button next;
 
@@ -26,12 +26,12 @@ public class BookDescription extends Activity {
         titulo = (TextView) findViewById(R.id.titulo);
         autor = (TextView) findViewById(R.id.autor);
         sinopse = (TextView) findViewById(R.id.book_description);
-        imagem = (ImageView) findViewById(R.id.capa);
+//        imagem = (ImageView) findViewById(R.id.capa);
 
         titulo.setText(getIntent().getStringExtra("LIVRO"));
         autor.setText(getIntent().getStringExtra("AUTOR"));
         sinopse.setText(getIntent().getStringExtra("SINOPSE"));
-        imagem.setImageBitmap(BitmapHelper.getInstance().getBitmap());
+//        imagem.setImageBitmap(BitmapHelper.getInstance().getBitmap());
 
         buttonPrev();
         buttonNext();

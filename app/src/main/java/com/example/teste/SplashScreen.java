@@ -5,7 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.teste.Model.FakeDb;
+
 public class SplashScreen extends Activity {
+
+    //inicia o FakeDb
+    public FakeDb fakeDb = new FakeDb();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +22,7 @@ public class SplashScreen extends Activity {
             public void run() {
                 mostrarMainActivity();
             }
-        }, 3000);
+        }, 2500);
     }
 
     private void mostrarMainActivity() {

@@ -35,6 +35,13 @@
             android:layout_marginLeft="110dp"
             android:text="Autor do livro" />
 
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="id"
+            android:visibility="invisible" />
+
         <!--<TextView-->
             <!--android:id="@+id/item_livro_desc"-->
             <!--android:layout_width="wrap_content"-->
