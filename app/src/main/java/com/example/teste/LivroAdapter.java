@@ -2,8 +2,6 @@ package com.example.teste;
 
 import android.content.Context;
 import android.content.Intent;
-//import android.graphics.Bitmap;
-//import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,13 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-//import com.example.teste.Helper.BitmapHelper;
-//
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.net.HttpURLConnection;
-//import java.net.MalformedURLException;
-//import java.net.URL;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,8 +26,6 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
     private ArrayList<String> mSinopse = new ArrayList<>();
     private ArrayList<Integer> mId = new ArrayList<>();
     private Context mContext;
-
-//    Bitmap bitmap;
 
     public LivroAdapter(Context mContext, ArrayList<String> mImageName, ArrayList<String> mImages, ArrayList<String> mAutor, ArrayList<String> mSinopse, ArrayList<Integer> mId) {
         this.mImageName = mImageName;
@@ -59,8 +48,6 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-//        bitmap = loadBitmapFromUrl (mImages.get(position).toString());
-
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImages.get(position))
@@ -77,10 +64,8 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
                 Intent it = new Intent(mContext, BookDescription.class);
                 it.putExtra("LIVRO", mImageName.get(position).toString());
                 it.putExtra("AUTOR", mAutor.get(position).toString());
-//                it.putExtra("IMAGEM", mImages.get(position).toString());
                 it.putExtra("SINOPSE", mSinopse.get(position).toString());
 
-//                BitmapHelper.getInstance().setBitmap(bitmap);
                 mContext.startActivity(it);
             }
         });
@@ -109,25 +94,4 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
 
         }
     }
-
-//    private Bitmap loadBitmapFromUrl(String imagem) {
-//        try{
-//            URL url = new URL(imagem);
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setDoInput(true);
-//            connection.connect();
-//
-//            InputStream inputStream = connection.getInputStream();
-//            Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
-//            return myBitmap;
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
-
 }
