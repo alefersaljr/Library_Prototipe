@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
+import com.example.teste.Adapters.LivroAdapter;
 import com.example.teste.Model.FakeDb;
 import com.example.teste.Model.VO.Book;
 
 import java.util.ArrayList;
 
 public class BookList extends Activity {
-
-    private static final String TAG = "BookList";
 
     //vars
     private  ArrayList<String> mName = new ArrayList<>();
@@ -26,13 +24,11 @@ public class BookList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
-        Log.d(TAG, "onCreate: started.");
 
         initImageBitmaps();
     }
 
     private void initImageBitmaps() {
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
         for (Book bookTemp : FakeDb.list) {
             mAutor.add(bookTemp.getAutor());
@@ -45,7 +41,6 @@ public class BookList extends Activity {
     }
 
     private void initRecyclerView(){
-        Log.d(TAG, "initRecyclerView: init recyclerview.");
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LivroAdapter adapter = new LivroAdapter(this, mName, mImageUrls, mAutor, mSinopse, mId);
         recyclerView.setAdapter(adapter);

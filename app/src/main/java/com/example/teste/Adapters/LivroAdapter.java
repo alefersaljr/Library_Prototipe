@@ -1,10 +1,9 @@
-package com.example.teste;
+package com.example.teste.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.teste.BookDescription;
+import com.example.teste.R;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> {
-
-    private static final String TAG = "RecyclerViewAdapter";
 
     private ArrayList<String> mImageName = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
@@ -46,7 +46,6 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d(TAG, "onBindViewHolder: called.");
 
         Glide.with(mContext)
                 .asBitmap()
@@ -59,12 +58,9 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-                Log.d(TAG, "onClick: clicked on: " + mImageName.get(position));
 
                 Intent it = new Intent(mContext, BookDescription.class);
-                it.putExtra("LIVRO", mImageName.get(position).toString());
-                it.putExtra("AUTOR", mAutor.get(position).toString());
-                it.putExtra("SINOPSE", mSinopse.get(position).toString());
+                it.putExtra("ID", mId.get(position).toString());
 
                 mContext.startActivity(it);
             }
@@ -91,7 +87,6 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.ViewHolder> 
             autorName = itemView.findViewById(R.id.autor);
             id = itemView.findViewById(R.id.id);
             parentLayout = itemView.findViewById(R.id.parent_layout);
-
         }
     }
 }

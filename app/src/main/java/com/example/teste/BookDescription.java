@@ -1,12 +1,16 @@
 package com.example.teste;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.example.teste.Adapters.ViewPagerAdapter;
+import com.example.teste.Model.FakeDb;
+import com.example.teste.Model.VO.Book;
+
 
 public class BookDescription extends Activity {
 
@@ -15,9 +19,10 @@ public class BookDescription extends Activity {
     public TextView sinopse;
     public ImageView capa;
     public ImageView imagePass;
+    public Integer mId;
+    private String mURL;
 
-    Button prev;
-    Button next;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,34 +34,30 @@ public class BookDescription extends Activity {
         sinopse = (TextView) findViewById(R.id.book_description);
         capa = (ImageView) findViewById(R.id.capa);
         imagePass = (ImageView) findViewById(R.id.imagePass);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        titulo.setText(getIntent().getStringExtra("LIVRO"));
-        autor.setText(getIntent().getStringExtra("AUTOR"));
-        sinopse.setText(getIntent().getStringExtra("SINOPSE"));
+        //identifica o id do item selecionado
+        mId = Integer.parseInt(getIntent().getStringExtra("ID"));
 
-        buttonPrev();
-        buttonNext();
-    }
 
-    protected void buttonPrev() {
-        prev = (Button) findViewById(R.id.prev);
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent itt = new Intent(BookDescription.this, BookList.class);
-                startActivity(itt);
+        //localiza o item selecionado, no FakeDb, e resgata a URL da imagem da capa do livro
+        for (Book bookTemp : FakeDb.list) {
+            if (bookTemp.getId() == mId){
+                mURL = bookTemp.getUrl();
+                titulo.setText(bookTemp.getName());
+                autor.setText(bookTemp.getAutor());
+                sinopse.setText(bookTemp.getDescricao());
             }
-        });
-    }
+        }
 
-    protected void buttonNext (){
-        next = (Button) findViewById(R.id.next);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(BookDescription.this, BookList.class);
-                startActivity(it);
-            }
-        });
+        //carrega a imagem através da URL, no campo capa
+        Glide.with(this.getApplicationContext())
+                .load(mURL)
+                .into(capa);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+
+        viewPager.setAdapter(viewPagerAdapter);
+
     }
 }
